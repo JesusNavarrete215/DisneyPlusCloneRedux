@@ -1,4 +1,9 @@
-import firebase from "firebase"
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+// Add Firebase storage
+import 'firebase/compat/storage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -11,11 +16,11 @@ const firebaseConfig = {
   appId: "1:356571201533:web:be70b63c938a53bee5a394",
   measurementId: "G-L3WYGXY8RP"
 };
-
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 const storage = firebase.storage();
-export {auth, provider, storage}
-export default db; 
+
+ export {auth, provider, storage}
+ export default db; 
