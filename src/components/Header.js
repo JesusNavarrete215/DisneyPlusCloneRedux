@@ -28,14 +28,22 @@ const Header = (props) => {
   
 
   const handleAuth = () => {
-    auth
+    var username=""
+    if(!username){auth
       .signInWithPopup(provider)
       .then((result) => {
         setUser(result.user)
       })
       .catch((error) => {
         alert(error.message);
-      });
+      });}
+      else if(username) {
+        auth.signOut().then(() => {
+          dispatch(setSignOutState())
+          history.push("/")
+
+        })
+      }
   };
 
   const setUser = (user) => {
