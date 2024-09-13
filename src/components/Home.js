@@ -24,16 +24,16 @@ const Home = (props) => {
       snapshot.docs.map((doc) => {
         switch (doc.data().type) {
           case "recommend":
-            recommends.push({ id: doc.id, ...doc.data() });
+            recommends = ([...recommends, { ...doc.data(), id: doc.id,  }]);
             break;
           case "new":
-            newDisneys.push({ id: doc.id, ...doc.data() });
+            newDisneys = ([...newDisneys, { ...doc.data(), id: doc.id,  }]);
             break;
           case "originals":
-            originals.push({ id: doc.id, ...doc.data() });
+            originals = ([...originals, { ...doc.data(), id: doc.id,  }]);
             break;
           case "trending":
-            trending.push({ id: doc.id, ...doc.data() });
+            trending = ([...trending, { ...doc.data(), id: doc.id,  }]);
             break;
         }
       });
