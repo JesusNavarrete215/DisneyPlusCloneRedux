@@ -14,51 +14,60 @@ import { useEffect } from "react";
 const Header = (props) => {
   const dispatch = useDispatch();
   const history = useNavigate();
-//   const userName = useSelector(selectUserName);
-//   const userPhoto = useSelector(selectUserPhoto);
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
 
-  useEffect(()=> {
+  useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      if(user){
+      if (user) {
         setUser(user);
-        history.push("/home")
+        history("/home");
       }
-    })
-  }, [])
+    });
+  }, [userName]);
   
 
   const handleAuth = () => {
-    var username=""
-    if(!username){auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        setUser(result.user)
-      })
-      .catch((error) => {
-        alert(error.message);
-      });}
-      else if(username) {
-        auth.signOut().then(() => {
-          dispatch(setSignOutState())
-          history.push("/")
-
+    if (!userName) {
+      auth
+        .signInWithPopup(provider)
+        .then((result) => {
+          setUser(result.user);
         })
-      }
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          history.push("/");
+        })
+        .catch((err) => alert(err.message));
+    }
   };
 
   const setUser = (user) => {
-    dispatch(setUserLoginDetails({
-        name: user.displayName, 
-        email:user.email,
-        photo: user.photo.url,
-    }))
-  }
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
 
   return (
-    <Nav>
-      <Logo>
-        <img src="./images/logo.svg" alt="Disney+" />
-      </Logo>
+  <Nav>
+    <Logo>
+      <img src="/images/logo.svg" alt="Disney+" />
+    </Logo>
+
+    {!userName ? (
+      <Login onClick={handleAuth}>Login</Login>
+    ) : (
+      <>
       <NavMenu>
         <a href="/home">
           <img src="/images/home-icon.svg" alt="Home" />
@@ -91,11 +100,13 @@ const Header = (props) => {
         </a>
       </NavMenu>
       <SignOut>
-        <UserImg src={"./../../public/images/search-icon.png"} />
+      <UserImg src={userPhoto} alt={userName} />
         <DropDown>
           <span onClick={handleAuth}>Sign out</span>
         </DropDown>
       </SignOut>
+      </>
+      )}
     </Nav>
   );
 };

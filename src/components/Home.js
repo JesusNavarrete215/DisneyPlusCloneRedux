@@ -29,7 +29,7 @@ const Home = (props) => {
           case "new":
             newDisneys = [...newDisneys, { ...doc.data(), id: doc.id }];
             break;
-          case "originals":
+          case "original":
             originals = [...originals, { ...doc.data(), id: doc.id }];
             break;
           case "trending":
@@ -37,7 +37,7 @@ const Home = (props) => {
             break;
         }
       });
-       dispatch(
+     dispatch(
       setMovies({
         recommend: recommends,
         newDisney: newDisneys,
@@ -46,15 +46,15 @@ const Home = (props) => {
       })
     );
     });
-   
-  }, [userName]);
+     
+  }, []);
 
   return (
     <Container>
       <ImgSlider />
       <Viewers />
-      <NewDisney />
       <Recommends />
+      <NewDisney />
       <Originals />
       <Trending />
     </Container>
