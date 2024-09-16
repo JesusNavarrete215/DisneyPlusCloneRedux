@@ -9,7 +9,7 @@ export const Trending = () => {
   const movies = useSelector(selectTrending);
   return (
     <Container>
-      <h4>Trending</h4>
+      <h4>Trending Shows</h4>
       <Content>
         {movies &&
           movies.map((movie, key) => (

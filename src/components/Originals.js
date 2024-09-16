@@ -7,7 +7,7 @@ export const Originals = () => {
   const movies = useSelector(selectOriginal);
   return (
     <Container>
-      <h4>Originals</h4>
+      <h4>Originals from Us to You</h4>
       <Content>
         {movies &&
           movies.map((movie, key) => (
